@@ -1,12 +1,16 @@
-const { ethers } = require("hardhat");
-
 async function main() {
-  const [owner1, owner2, owner3] = await ethers.getSigners();
+  const [deployer] = await ethers.getSigners();
+
+  console.log("Deploying with account:", deployer.address);
 
   const MultiSig = await ethers.getContractFactory("MultiSigWallet");
 
   const contract = await MultiSig.deploy(
-    [owner1.address, owner2.address, owner3.address],
+    [
+      deployer.address,
+      "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+    ],
     2
   );
 
